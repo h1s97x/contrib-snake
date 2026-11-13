@@ -1,8 +1,8 @@
 # contrib-snake
 
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/h1s97x/gh-snake/main.yml?label=action&style=flat-square)](https://github.com/h1s97x/gh-snake/actions/workflows/main.yml)
-[![GitHub release](https://img.shields.io/github/release/h1s97x/gh-snake.svg?style=flat-square)](https://github.com/h1s97x/gh-snake/releases/latest)
-[![GitHub marketplace](https://img.shields.io/badge/marketplace-snake-blue?logo=github&style=flat-square)](https://github.com/h1s97x/gh-snake)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/h1s97x/contrib-snake/main.yml?label=action&style=flat-square)](https://github.com/h1s97x/contrib-snake/actions/workflows/main.yml)
+[![GitHub release](https://img.shields.io/github/release/h1s97x/contrib-snake.svg?style=flat-square)](https://github.com/h1s97x/contrib-snake/releases/latest)
+[![GitHub marketplace](https://img.shields.io/badge/marketplace-snake-blue?logo=github&style=flat-square)](https://github.com/h1s97x/contrib-snake)
 ![type definitions](https://img.shields.io/npm/types/typescript?style=flat-square)
 ![code style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)
 
@@ -11,7 +11,7 @@ platforms: **GitHub**, **CNB** and **GitLab** (plus any platform you add an
 adapter for).
 
 Canonical repository: `h1s97x/plugins/contrib-snake` (CNB). The GitHub mirror
-`h1s97x/gh-snake` is kept for GitHub Action / Marketplace references.
+`h1s97x/contrib-snake` is kept for GitHub Action / Marketplace references.
 
 <picture>
   <source
@@ -66,7 +66,7 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: generate snake svg
-        uses: h1s97x/gh-snake@main
+        uses: h1s97x/contrib-snake@main
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
@@ -86,7 +86,7 @@ The same action works for the other platforms — set `platform` and pass the
 matching token, for example:
 
 ```yaml
-- uses: h1s97x/gh-snake@main
+- uses: h1s97x/contrib-snake@main
   with:
     platform: gitlab
     user_name: my-gitlab-user
@@ -193,9 +193,10 @@ palettes and multi-platform groundwork now live here. Replace the plugin image
 with `docker.cnb.cool/h1s97x/plugins/contrib-snake:latest`; all `settings` keys
 stay valid.
 
-The CNB repository is now `h1s97x/plugins/contrib-snake` (the old `gh-snake`
-slug redirects). The GitHub mirror is still `h1s97x/gh-snake`, so the Action
-reference `h1s97x/gh-snake@main` and the badges above remain valid.
+Both repositories are now named `contrib-snake`: `h1s97x/plugins/contrib-snake`
+on CNB and `h1s97x/contrib-snake` on GitHub; old slugs still redirect. The Action
+reference `h1s97x/contrib-snake@main` and the badges above point at the renamed
+GitHub mirror.
 
 ## Implementation
 

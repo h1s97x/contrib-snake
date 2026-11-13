@@ -1,4 +1,4 @@
-# snk
+# contrib-snake
 
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/h1s97x/gh-snake/main.yml?label=action&style=flat-square)](https://github.com/h1s97x/gh-snake/actions/workflows/main.yml)
 [![GitHub release](https://img.shields.io/github/release/h1s97x/gh-snake.svg?style=flat-square)](https://github.com/h1s97x/gh-snake/releases/latest)
@@ -9,6 +9,9 @@
 Generates a snake game from a user contribution grid. One codebase, multiple
 platforms: **GitHub**, **CNB** and **GitLab** (plus any platform you add an
 adapter for).
+
+Canonical repository: `h1s97x/plugins/contrib-snake` (CNB). The GitHub mirror
+`h1s97x/gh-snake` is kept for GitHub Action / Marketplace references.
 
 <picture>
   <source
@@ -108,7 +111,7 @@ Then embed it in your `README.md`:
 ### CNB pipeline plugin
 
 This repository also builds a CNB Docker plugin. Pushing a tag publishes
-`docker.cnb.cool/h1s97x/plugins/gh-snake:latest` automatically:
+`docker.cnb.cool/h1s97x/plugins/contrib-snake:latest` automatically:
 
 ```yaml
 main:
@@ -116,7 +119,7 @@ main:
     - name: contribution-snake
       stages:
         - name: generate
-          image: docker.cnb.cool/h1s97x/plugins/gh-snake:latest
+          image: docker.cnb.cool/h1s97x/plugins/contrib-snake:latest
           settings:
             theme: both
             output: snake.svg
@@ -187,9 +190,12 @@ For **dark mode** support on GitHub, use this [special syntax](https://docs.gith
 
 `h1s97x/plugins/cnb-snake` is archived: its CNB data source, plugin entrypoint,
 palettes and multi-platform groundwork now live here. Replace the plugin image
-with `docker.cnb.cool/h1s97x/plugins/gh-snake:latest`; all `settings` keys stay
-valid. The repository keeps the name `gh-snake` so existing Action references
-(`h1s97x/gh-snake@main`) do not break.
+with `docker.cnb.cool/h1s97x/plugins/contrib-snake:latest`; all `settings` keys
+stay valid.
+
+The CNB repository is now `h1s97x/plugins/contrib-snake` (the old `gh-snake`
+slug redirects). The GitHub mirror is still `h1s97x/gh-snake`, so the Action
+reference `h1s97x/gh-snake@main` and the badges above remain valid.
 
 ## Implementation
 

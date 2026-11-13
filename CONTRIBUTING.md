@@ -37,7 +37,7 @@ bun src/cli.ts --platform=github --user=<your-name> --github_token=<token> \
 
 # cnb
 CNB_TOKEN=<token> bun src/cli.ts --platform=cnb --user=<your-name> \
-  --output=dist/cnb-snake.svg
+  --output=dist/cnb.svg
 
 # via Action-style environment variables
 INPUT_PLATFORM=github \

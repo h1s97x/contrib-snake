@@ -40,8 +40,22 @@ main:
           options:
             type: add-reviewer-from-repo-members
 
-# 兜底分支：web_trigger / issue.* 等事件
+# 兜底分支：tag_push / web_trigger / issue.* 等事件
 $:
+  # Tag 推送时构建并发布 CNB Docker 插件镜像
+  tag_push:
+    - services:
+        - docker
+      stages:
+        - name: set docker tag
+          script: echo -n "${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:latest"
+          exports:
+            info: IMAGE_TAG
+        - name: docker build
+          script: docker build -t $IMAGE_TAG .
+        - name: push image
+          script: docker push $IMAGE_TAG
+
   # 手动触发：从 GitHub 拉取（GitHub → CNB）
   # 使用 tencentcom/git-sync 插件 + sync_mode: pull
   web_trigger_pull_from_github:

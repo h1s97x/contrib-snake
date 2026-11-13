@@ -1,15 +1,39 @@
-name: "generate-snake-game-from-github-contribution-grid"
-description: "Generates a snake game from a github user contributions grid. Output the animation as svg"
+name: "generate-snake-game-from-contribution-grid"
+description: "Generates a snake game from a user contribution grid (GitHub / CNB / GitLab) as an animated svg"
 author: "h1s97x"
 
 inputs:
+  platform:
+    description: "contribution source platform: github | cnb | gitlab"
+    required: false
+    default: github
+  user_name:
+    description: "user name on the selected platform"
+    required: false
   github_user_name:
-    description: "github user name"
-    required: true
+    description: "deprecated alias of user_name, kept for backwards compatibility"
+    required: false
   github_token:
     description: "github token used to fetch the contribution calendar. Default to the action token if empty."
     required: false
     default: ${{ github.token }}
+  cnb_token:
+    description: "CNB token (platform: cnb). Defaults to CNB_TOKEN env."
+    required: false
+  gitlab_token:
+    description: "GitLab PRIVATE-TOKEN (platform: gitlab). Defaults to GITLAB_TOKEN env."
+    required: false
+  metric:
+    description: "CNB activity metric: score | commit"
+    required: false
+    default: score
+  days:
+    description: "number of days in the contribution window"
+    required: false
+    default: "365"
+  base_url:
+    description: "override the platform API base url (self-hosted instances)"
+    required: false
   outputs:
     required: false
     description: |
@@ -18,7 +42,7 @@ inputs:
 
        supported query string options:
 
-      - palette:      A preset of color, one of [github, github-dark, github-light]
+      - palette:      A preset of color, e.g. github, github-dark, cnb-dark, gitlab-dark
       - color_snake:  Color of the snake
       - color_dots:   Coma separated list of dots color.
                       The first one is 0 contribution, then it goes from the low contribution to the highest.
@@ -41,8 +65,15 @@ runs:
     - run: bun "${{ github.action_path }}/src/cli.ts"
       shell: bash
       env:
+        INPUT_PLATFORM: ${{ inputs.platform }}
+        INPUT_USER_NAME: ${{ inputs.user_name }}
         INPUT_GITHUB_USER_NAME: ${{ inputs.github_user_name }}
         INPUT_GITHUB_TOKEN: ${{ inputs.github_token }}
+        INPUT_CNB_TOKEN: ${{ inputs.cnb_token }}
+        INPUT_GITLAB_TOKEN: ${{ inputs.gitlab_token }}
+        INPUT_METRIC: ${{ inputs.metric }}
+        INPUT_DAYS: ${{ inputs.days }}
+        INPUT_BASE_URL: ${{ inputs.base_url }}
         INPUT_OUTPUTS: ${{ inputs.outputs }}
         INPUT_SVG_OUT_PATH: ${{ inputs.svg_out_path }}
         GITHUB_TOKEN: ${{ github.token }}

@@ -1,18 +1,13 @@
 import type { DrawOptions } from "./render/index";
-import { getGithubUserContribution } from "./github";
+import { getContribution, type Source } from "./sources";
 import { getBestRoute } from "./solver/getBestRoute";
 import { getPathToPose } from "./solver/getPathToPose";
 import { snake4 } from "./snake";
 import { cellsToGrid } from "./cellsToGrid";
 
 export { basePalettes, palettes } from "./palettes";
-
-export type Source = {
-  platform: "github";
-  username: string;
-  githubToken: string;
-  baseUrl?: string;
-};
+export { platforms, getContribution } from "./sources";
+export type { Cell, Platform, Source } from "./sources";
 
 export type AnimationOptions = { stepDurationMs: number };
 export type Output = {
@@ -25,10 +20,7 @@ export const generateSnakeAnimation = async (
   outputs: (Output | null)[],
 ) => {
   console.log(`🎣 fetching user contribution from ${source.platform}`);
-  const cells = await getGithubUserContribution(source.username, {
-    githubToken: source.githubToken,
-    baseUrl: source.baseUrl,
-  });
+  const cells = await getContribution(source);
   const grid = cellsToGrid(cells);
   const snake = snake4;
 

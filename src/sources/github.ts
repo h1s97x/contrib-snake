@@ -1,3 +1,5 @@
+import type { Cell } from "./types";
+
 /**
  * get the contribution grid from a github user page
  *
@@ -8,16 +10,11 @@
  *
  * @param userName github user name
  * @param options
- *
- * @example
- *  getGithubUserContribution("h1s97x", { from: "2019-01-01", to: "2019-12-31" })
- *  getGithubUserContribution("h1s97x", { year: 2019 })
- *
  */
 export const getGithubUserContribution = async (
   userName: string,
   o: { githubToken: string; baseUrl?: string },
-) => {
+): Promise<Cell[]> => {
   const query = /* GraphQL */ `
     query ($login: String!) {
       user(login: $login) {
@@ -99,7 +96,3 @@ type GraphQLRes = {
     };
   };
 };
-
-export type Res = Awaited<ReturnType<typeof getGithubUserContribution>>;
-
-export type Cell = Res[number];

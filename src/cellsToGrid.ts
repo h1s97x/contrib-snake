@@ -1,8 +1,7 @@
 import { type Color, createEmptyGrid, setColor, setColorEmpty } from "./types";
+import type { Cell } from "./sources";
 
-export const cellsToGrid = (
-  cells: { x: number; y: number; level: number }[],
-) => {
+export const cellsToGrid = (cells: Cell[]) => {
   const width = Math.max(0, ...cells.map((c) => c.x)) + 1;
   const height = Math.max(0, ...cells.map((c) => c.y)) + 1;
 

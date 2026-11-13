@@ -8,9 +8,15 @@ export type Output = {
   animationOptions: AnimationOptions;
 };
 
-export const parseOutputsOption = (lines: string[]) => lines.map(parseEntry);
+export const parseOutputsOption = (
+  lines: string[],
+  defaultPalette: keyof typeof palettes = "default",
+) => lines.map((line) => parseEntry(line, defaultPalette));
 
-export const parseEntry = (entry: string): Output | null => {
+export const parseEntry = (
+  entry: string,
+  defaultPalette: keyof typeof palettes = "default",
+): Output | null => {
   const m = entry.trim().match(/^(.+\.svg)(\?(.*)|\s*({.*}))?$/);
 
   if (!m) return null;
@@ -35,7 +41,7 @@ export const parseEntry = (entry: string): Output | null => {
     sizeDotBorderRadius: 0,
     sizeCell: 16,
     sizeDot: 12,
-    ...palettes["default"],
+    ...(palettes[defaultPalette] ?? palettes.default),
   };
   const animationOptions: AnimationOptions = {
     stepDurationMs: 100,

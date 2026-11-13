@@ -14,7 +14,7 @@ main:
         - name: sync to github
           image: tencentcom/git-sync
           settings:
-            target_url: https://github.com/h1s97x/gh-snake.git
+            target_url: https://github.com/h1s97x/contrib-snake.git
             auth_type: https
             username: ${GITHUB_USERNAME}
             password: ${GITHUB_TOKEN}
@@ -66,7 +66,7 @@ $:
         - name: pull from github
           image: tencentcom/git-sync
           settings:
-            target_url: https://github.com/h1s97x/gh-snake.git
+            target_url: https://github.com/h1s97x/contrib-snake.git
             auth_type: https
             username: ${GITHUB_USERNAME}
             password: ${GITHUB_TOKEN}

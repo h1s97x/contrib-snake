@@ -104,7 +104,7 @@ export const createSvg = (
     }).replace("/>", ">"),
 
     "<desc>",
-    "Generated with https://github.com/h1s97x/gh-snake",
+    "Generated with https://github.com/h1s97x/contrib-snake",
     "</desc>",
 
     "<style>",

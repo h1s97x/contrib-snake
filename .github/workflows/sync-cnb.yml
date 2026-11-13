@@ -24,7 +24,7 @@ jobs:
           set -e
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git clone "https://${CNB_TOKEN}@cnb.cool/h1s97x/plugins/gh-snake.git" cnb-dst
+          git clone "https://${CNB_TOKEN}@cnb.cool/h1s97x/plugins/contrib-snake.git" cnb-dst
           cd cnb-dst
           # 用 rsync 把 GitHub 侧内容（排除 .git/.github/.cnb*）同步进 CNB 工作区
           rsync -a --delete --exclude='.git' --exclude='.github' --exclude='.cnb*' ../github-src/ ./

@@ -70,6 +70,20 @@ Add `src/sources/<platform>.ts` returning `Promise<Cell[]>`, register it in
 `src/sources/types.ts` and `src/sources/index.ts`, add palettes, and cover the
 adapter with an offline test in `src/__tests__/`.
 
+## Repository sync
+
+CNB (`h1s97x/plugins/contrib-snake`) is the source of truth; GitHub
+(`h1s97x/contrib-snake`) is the mirror for the Action / Marketplace.
+
+- **CNB → GitHub**: `.cnb.yml` `main.push` syncs on every push (credentials come
+  from the `h1s97x/secret-env` key repository).
+- **GitHub → CNB**: `.github/workflows/sync-cnb.yml` is the fallback for edits
+  made directly on GitHub. It needs a `CNB_TOKEN` repository secret on GitHub
+  with `repo-code:rw` (_Settings → Secrets and variables → Actions_); without it
+  the workflow skips with a notice instead of failing.
+- **Plugin image**: pushing a tag runs the `tag_push` pipeline in `.cnb.yml` and
+  publishes `docker.cnb.cool/h1s97x/plugins/contrib-snake:latest`.
+
 ## Contribution policy
 
 This project is open to contributions.

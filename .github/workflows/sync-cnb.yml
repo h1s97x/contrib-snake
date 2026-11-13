@@ -1,6 +1,8 @@
 name: Sync to CNB
 
 # 反向兜底：把直接在 GitHub 上的修改回灌到 CNB 源仓库。
+# 需要在 GitHub 仓库 Settings → Secrets and variables → Actions 配置 CNB_TOKEN
+# （具备 repo-code:rw 的 CNB 访问令牌）。未配置时直接跳过，不阻塞 CI。
 # 排除 .cnb*/.github/ 避免与 CNB → GitHub 的同步形成死循环。
 on:
   push:
@@ -20,14 +22,33 @@ jobs:
       - name: sync to cnb
         env:
           CNB_TOKEN: ${{ secrets.CNB_TOKEN }}
+          GIT_TERMINAL_PROMPT: "0"
         run: |
+          if [ -z "$CNB_TOKEN" ]; then
+            echo "::notice::CNB_TOKEN 未配置，跳过 GitHub → CNB 反向同步"
+            exit 0
+          fi
+
           set -e
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git clone "https://${CNB_TOKEN}@cnb.cool/h1s97x/plugins/contrib-snake.git" cnb-dst
+          auth="Authorization: Basic $(printf '%s' "cnb:${CNB_TOKEN}" | base64 -w0)"
+          git -c http.extraHeader="$auth" clone \
+            https://cnb.cool/h1s97x/plugins/contrib-snake.git cnb-dst
           cd cnb-dst
-          # 用 rsync 把 GitHub 侧内容（排除 .git/.github/.cnb*）同步进 CNB 工作区
-          rsync -a --delete --exclude='.git' --exclude='.github' --exclude='.cnb*' ../github-src/ ./
+
+          # 排除 .git/.github/.cnb*，只回灌代码与文档
+          rsync -a --delete --exclude='.git' --exclude='.github' --exclude='.cnb*' \
+            ../github-src/ ./
+
           git add -A
-          git diff --cached --quiet || git commit -m "chore: sync from github"
-          git push
+          if git diff --cached --quiet; then
+            echo "CNB 已是最新，无需同步"
+            exit 0
+          fi
+
+          git -c user.name="github-actions[bot]" \
+            -c user.email="github-actions[bot]@users.noreply.github.com" \
+            commit -m "chore: sync from github"
+          if ! git -c http.extraHeader="$auth" push origin HEAD:main; then
+            echo "::error::推送 CNB 失败，请检查 CNB_TOKEN 是否具备 repo-code:rw"
+            exit 1
+          fi

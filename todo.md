@@ -34,8 +34,10 @@
 
 - [ ] 在真实 CNB 流水线里跑一次新插件镜像
       `docker.cnb.cool/h1s97x/plugins/contrib-snake:latest`（已发布，
-      revision `6abaf45`）。profile 仓库 `h1s97x/h1s97x` 目前不使用 snake
-      插件，所以还没有真实调用验证。
+      revision `6abaf45`）。
+      进展：profile 仓库 `h1s97x/h1s97x` 已接入（`h1s97x/h1s97x#11`，每日
+      定时流水线新增 `contrib-snake` stage，`theme: both`）；CLI 侧已用真实
+      `CNB_TOKEN` 产出 `snake.svg` / `snake-dark.svg`，尚未跑过 Docker 镜像本身。
       完成判据：一次 pipeline 成功生成 `snake.svg` / `snake-dark.svg`。
 
 - [ ] 轮换对话里出现过的 CNB 访问令牌（令牌名 `test`），并确认它没有被写进

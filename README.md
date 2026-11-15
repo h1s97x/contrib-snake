@@ -1,5 +1,13 @@
 # contrib-snake
 
+> **Archived — historical repository.** All development now happens in
+> [`contrib-core`](https://cnb.cool/h1s97x/plugins/contrib-core); the snake
+> distribution channel is
+> [`contrib-arcade-snake`](https://cnb.cool/h1s97x/plugins/contrib-arcade-snake).
+> This repository keeps the original history and open issues; no new code is
+> published here.
+
+
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/h1s97x/contrib-snake/main.yml?label=action&style=flat-square)](https://github.com/h1s97x/contrib-snake/actions/workflows/main.yml)
 [![GitHub release](https://img.shields.io/github/release/h1s97x/contrib-snake.svg?style=flat-square)](https://github.com/h1s97x/contrib-snake/releases/latest)
 [![GitHub marketplace](https://img.shields.io/badge/marketplace-snake-blue?logo=github&style=flat-square)](https://github.com/h1s97x/contrib-snake)
